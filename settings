@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Image file to build from
+SOURCE_IMG='ER-e200.v1.7.0.4783374.tar'
+
+# Build
+BUILD='9990001'
+
+# Version
+VERSION="v1.7.0.${BUILD}.$(date +%y%m%d).$(date +%H%M)"
+
+# Image Name
+IMAGE_NAME="ER-e200.${VERSION}"
+
+# Cross Architecture binaary
+CROSS_ARCH="/usr/bin/qemu-mips-static"
