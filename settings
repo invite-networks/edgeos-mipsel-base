@@ -10,7 +10,7 @@ BUILD='9990001'
 VERSION="v1.7.0.${BUILD}.$(date +%y%m%d).$(date +%H%M)"
 
 # Image Name
-IMAGE_NAME="ER-e50.${VERSION}"
+IMAGE_NAME="ER-e50.${BUILD}"
 
 # Cross Architecture binaary
 CROSS_ARCH="/usr/bin/qemu-mipsel-static"
