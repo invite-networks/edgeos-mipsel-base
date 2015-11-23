@@ -1,0 +1,59 @@
+interfaces {
+    ethernet eth0 {
+    }
+    ethernet eth1 {
+    }
+    ethernet eth2 {
+        address dhcp
+    }
+    ethernet eth3 {
+    }
+    ethernet eth4 {
+        address 192.168.1.1/24
+    }
+    switch switch0 {
+    }
+    loopback lo {
+    }
+}
+
+service {
+    ssh {
+        port 22
+        protocol-version v2
+    }
+}
+
+system {
+    login {
+         user admin {
+             authentication {
+                 encrypted-password $6$Q3BtM3z0emV$BGJ4DzUg3q2xgHRoRNjF3VXtEUR4CGbDE3ws9V6nDO83cQ6ga3F72BzrYZvCyfScv6hp.GqEvLimZj/iwYfR2/
+             }
+             level admin
+         }
+    }
+    name-server 8.8.8.8
+    name-server 8.8.4.4
+    ntp {
+        server 0.pool.ntp.org {
+        }
+        server 1.pool.ntp.org {
+        }
+    }
+    syslog {
+        global {
+            facility all {
+                level notice
+            }
+            facility protocols {
+                level debug
+            }
+        }
+    }
+}
+
+
+/* Warning: Do not remove the following line. */
+/* === vyatta-config-version: "webproxy@1:vrrp@1:firewall@5:conntrack@1:cron@1:config-management@1:webgui@1:ubnt-util@1:qos@1:system@4:zone-policy@1:dhcp-server@4:quagga@2:ubnt-pptp@1:dhcp-relay@1:nat@3:ipsec@4" === */
+/* Release version: v1.7.0.4783374.150622.1533 */
