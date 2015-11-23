@@ -1,0 +1,44 @@
+multi:
+type: txt
+help: Interface associated with zone
+priority: 399 # Be sure the interface is created before we try and add to a zone
+allowed: /usr/sbin/ubnt-ifctl list-sys-intfs all
+
+syntax:expression: $VAR(@) != "lo" ; "Cannot assign loopback interface to a transit zone. It's part of local-zone"
+
+create: /usr/sbin/ubnt-ifctl valid-intf $VAR(@) all warn   
+
+create: 
+    # fw zone actions
+    if ! /opt/vyatta/sbin/vyatta-zone.pl        \
+      --action=add-zone-interface           \
+      --zone-name="$VAR(../@)"          \
+      --interface="$VAR(@)"; then
+      exit 1
+    fi
+
+    # ips zone actions
+    if ! /opt/vyatta/sbin/vyatta-zone-ips.pl        \
+      --action=add-zone-interface               \
+      --zone-name="$VAR(../@)"                  \
+      --interface="$VAR(@)"; then
+      exit 1
+    fi
+
+delete: 
+    # fw zone actions
+    if ! /opt/vyatta/sbin/vyatta-zone.pl        \
+      --action=delete-zone-interface        \
+      --zone-name="$VAR(../@)"          \
+      --interface="$VAR(@)"; then
+      exit 1
+    fi
+
+    # ips zone actions
+    if ! /opt/vyatta/sbin/vyatta-zone-ips.pl        \
+      --action=delete-zone-interface            \
+      --zone-name="$VAR(../@)"                  \
+      --interface="$VAR(@)"; then
+      exit 1
+    fi
+
